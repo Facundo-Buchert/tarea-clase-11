@@ -39,10 +39,11 @@ function convertToArray (colors) {
 }
 
 const board = document.querySelector("#board")
+let arrayColors
 
 function mixColors () {
     const allColors = document.querySelectorAll(".color")
-    const arrayColors = convertToArray(allColors)
+    arrayColors = convertToArray(allColors)
     arrayColors.sort(()=> Math.random() - 0.5);
 
     allColors.forEach(function(i){
@@ -63,5 +64,43 @@ function mixColors () {
     });   
     }, 1250);
     
+}
+
+
+function handleClicks(){
+    let clicks = 0
+    arrayColors.forEach(function(color){
+        color.onclick = function () {
+
+            clicks++
+
+            if (clicks === 1){
+            color.style.background = color.id
+            color.style.color = color.id
+            color.classList = "color-1"
+            }
+
+            if (clicks === 2){
+            color.style.background = color.id
+            color.style.color = color.id
+            color.classList = "color-2"
+
+            const color1 = document.querySelector(".color-1")
+            const color2 = document.querySelector(".color-2")
+
+            if (color1.id === color2.id){
+                setTimeout(function(){
+                color1.style.background = "white"
+                color1.style.color = "white"
+                color2.style.background = "white"
+                color2.style.color = "white"
+                color1.removeClass("color-1")
+                color1.removeClass("color-2")
+                }, 500)
+                clicks = 0
+            }
+            }
+        }
+    })
 }
 
