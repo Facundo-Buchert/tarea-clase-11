@@ -16,9 +16,9 @@ function resetGame () {
     resetRound()
     resetStatus()
     mixColors()
+
     handleClicks()
 }
-
 
 function resetRound () {
     round = 0
@@ -45,7 +45,6 @@ function mixColors () {
     const allColors = document.querySelectorAll(".color")
     arrayColors = convertToArray(allColors)
     arrayColors.sort(()=> Math.random() - 0.5);
-
     allColors.forEach(function(i){
         board.removeChild(i)
     })
@@ -70,7 +69,9 @@ function mixColors () {
 function handleClicks(){
     let clicks = 0
     arrayColors.forEach(function(color){
+        
         color.onclick = function () {
+            if (color.style.background !== "white"){
 
             clicks++
 
@@ -94,13 +95,25 @@ function handleClicks(){
                 color1.style.color = "white"
                 color2.style.background = "white"
                 color2.style.color = "white"
-                color1.removeClass("color-1")
-                color1.removeClass("color-2")
+                color1.className = "col-sm-4"
+                color2.className = "col-sm-4"
                 }, 500)
                 clicks = 0
             }
+            else {
+                setTimeout(function(){
+                    color1.style.background = "grey"
+                    color1.style.color = "grey"
+                    color2.style.background = "grey"
+                    color2.style.color = "grey"
+                    color1.className = "col-sm-4"
+                    color2.className = "col-sm-4"
+                    }, 500)
+                    clicks = 0
+            }
             }
         }
+    }
     })
 }
 
